@@ -14,12 +14,13 @@ export const fetchScraperData = createAsyncThunk(
     'products/fetchScraperData',
     async ({ url }) => {
         try {
+            await new Promise(resolve => setTimeout(resolve, 3000));
             const response = await fetch(`${baseUrl}/products`, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
               },
-              body: JSON.stringify(url),
+              body: JSON.stringify({ url }),
             });
             const data = await response.json();
             return data;
@@ -33,6 +34,7 @@ export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (name) => {
     try {
+        await new Promise(resolve => setTimeout(resolve, 3000));
         const response = await fetch(`${baseUrl}/categories/${name}`);
           const data = await response.json();
           return data;

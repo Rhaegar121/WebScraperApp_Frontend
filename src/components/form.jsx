@@ -18,8 +18,6 @@ const Form = () => {
     <div>
       <button type="button" onClick={scrape}>Scrape</button>
       <button type="button" onClick={fetch}>fetch</button>
-      {/* <button type="button" onClick={fetchScraperData()}>Scrape</button>
-      <button type="button" onClick={fetchProducts()}>fetch</button> */}
     </div>
   )
 }
