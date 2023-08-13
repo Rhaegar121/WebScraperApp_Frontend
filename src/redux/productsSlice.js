@@ -7,40 +7,30 @@ const initialState = {
   products: [],
   images: [],
   status: 'idle',
-  isLoading: true,
+  isLoading: false,
 };
-
-export const fetchScraperData = createAsyncThunk(
-    'products/fetchScraperData',
-    async ({ url }) => {
-        try {
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            const response = await fetch(`${baseUrl}/products`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ url }),
-            });
-            const data = await response.json();
-            return data;
-          } catch (error) {
-            console.error('Error storing scraped data:', error);
-          }
-    },
-);
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async (name) => {
+  async ({ url, categoryName }) => {
     try {
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        const response = await fetch(`${baseUrl}/categories/${name}`);
-          const data = await response.json();
-          return data;
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
+      // Step 1: Send the URL to scrape and store data
+      await fetch(`${baseUrl}/products`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      });
+
+      // Step 2: Fetch products by category after storing data
+      const response = await fetch(`${baseUrl}/categories/${categoryName}`);
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      console.error('Error fetching and storing data:', error);
+    }
   },
 );
 
@@ -50,18 +40,11 @@ const productSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
       builder
-        .addCase(fetchScraperData.pending, (state) => ({ ...state, isLoading: true }))
-        .addCase(fetchScraperData.fulfilled, (state, action) => ({
+        .addCase(fetchProducts.pending, (state) => ({ 
           ...state,
-          isLoading: false,
-          status: action.payload.message,
+          isLoading: true,
+          status: 'Scraping the data, please wait...',
         }))
-        .addCase(fetchScraperData.rejected, (state, action) => ({ 
-          ...state,
-          isLoading: false,
-          status: action.payload.message,
-        }))
-        .addCase(fetchProducts.pending, (state) => ({ ...state, isLoading: true }))
         .addCase(fetchProducts.fulfilled, (state, action) => ({
           ...state,
           isLoading: false,
