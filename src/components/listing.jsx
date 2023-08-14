@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Form from './form';
 import { urlsByCategory } from "../index.js"
 
 const Listing = () => {
@@ -37,6 +38,8 @@ const Listing = () => {
           ))}
         </ul>
       </div>
+
+      <Form name={selectedCategory} />
     </div>
   )
 }

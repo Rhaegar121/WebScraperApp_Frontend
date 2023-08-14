@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { fetchProducts } from '../redux/productsSlice';
 
-const Form = () => {
+const Form = ({ name }) => {
   const dispatch = useDispatch();
   const [url, setUrl] = useState('');
   const category = useSelector(state => state.product.categories);
   const product = useSelector(state => state.product.products);
   const img = useSelector(state => state.product.images);
-  console.log('category', category);
-  console.log('product', product);
-  console.log('img', img);
   const isLoading = useSelector(state => state.product.isLoading);
 
   const handleUrlChange = (event) => {
@@ -19,10 +17,8 @@ const Form = () => {
 
   const handleFetchClick = () => {
     if (url.trim() !== '') {
-      console.log('Sending request...');
       setTimeout(() => {
-        dispatch(fetchProducts({ url: url, categoryName: 'LG' }));
-        console.log('Request sent!'); 
+        dispatch(fetchProducts({ url: url, categoryName: name }));
       }, 3000);
     }
   };
@@ -59,6 +55,10 @@ const Form = () => {
       </div>
     </div>
   );
+};
+
+Form.propTypes = {
+  name: PropTypes.string.isRequired,
 };
 
 export default Form;
