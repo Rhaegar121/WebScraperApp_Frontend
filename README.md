@@ -9,6 +9,7 @@
   - [Prerequisites](#prerequisites)
   - [Install](#install)
 - [👥 Authors](#authors)
+- [🔭 Future Features](#future-features)
 - [🤝 Contributing](#contributing)
 - [⭐️ Show your support](#support)
 
@@ -77,6 +78,13 @@ Clone this repository to your desired folder:
 - LinkedIn: [Kaung Myat Kyaw](https://www.linkedin.com/in/kaungmyatkyaw/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- **[Styling_with_TailwindCSS]**
+- **[More_category_urls]**
 
 ## 🤝 Contributing <a name="contributing"></a>
 
